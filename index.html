@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    
+    <title>Analog Read Serial</title>
+  </head>
+<body>
+<div class="row" id="connectButton" style="padding: 1em">CONNECT</div>
+<div class="row" id="patientCall"style="padding: 1em">
+</div>
+<div class="row" id="dripoStatus" style="padding: 1em">
+</div>
+
+<div id="dripoStatusTemplate" style="display: none">
+<div id="dripoRoot" class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+			<div class="nuecard">
+		        <div class="row" style="padding: 2rem">
+		        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 bed" style="font-size: 1.5rem"></div>
+		        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 row middle-xs" >
+		        	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		        		<span class="battery" style="font-size: .7rem;width: 100%;text-align: right;"></span>
+		        	</div>
+		        </div>
+		        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="font-size: .4rem;text-align: center;">&nbsp</div>
+		        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 rate" style="font-size: 2.5rem;text-align: center;"></div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 unit" style="font-size: .8rem;text-align: center;"></div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="font-size: .8rem;text-align: center;">&nbsp</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 volume" style="font-size: 1.1rem;text-align: center;"></div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="font-size: .4rem;text-align: center;">&nbsp</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 volCard nuecard" style="height:6px;padding: 0px;overflow: hidden;display: none"><div class="volStatusBar" style="height:100%;width:0%">&nbsp</div></div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 time" style="font-size: 1rem;text-align: center;"></div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="font-size: 1rem;text-align: center;">&nbsp</div>
+		        <button type="button" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 action neumorphic-btn" style="display:none">ACKNOWLEDGE</button>
+		        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="font-size: .4rem;text-align: center;">&nbsp</div>
+		      	</div>	
+		    </div>
+</div>
+</div>
+
+</body>
+<style>
+
+
+body{
+  margin:0px;
+  padding: 2em;
+   background: #e0e5ec;
+   font-family: "Helvetica";
+   color:#6D7587;
+}
+
+span{
+	 height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+
+
+.neumorphic-btn {
+  font-size: 20px;
+  border: none;
+  font-weight: bold;
+  padding: 10px 40px;
+  border-radius: 40px;
+  color: #f31d1dab;
+  background-color: var(--back-color);
+  /*box-shadow: 3px 4px 6px 1px rgba(0, 0, 0, 0.3), 
+              -2px -2px 4px 2px rgba(255, 255, 255, 1), 
+              inset -14px -14px 20px -10px rgba(0, 0, 0, 0.1),
+              inset 14px 14px 20px -10px rgba(255, 255, 255, 0.5) !important;  */
+  box-shadow: 7px 7px 15px rgba(55, 84, 170, .15),
+              -7px -7px 20px rgba(255, 255, 255, 1),
+              inset 0px 0px 4px rgba(255, 255, 255, .2),
+              inset 7px 7px 15px rgba(55, 84, 170, 0),
+              inset -7px -7px 20px rgba(255, 255, 255, 0),
+              0px 0px 4px rgba(255, 255, 255, 0) !important;
+  transition: box-shadow .25s ease !important;
+}
+
+.neumorphic-btn:active {  
+  box-shadow: 7px 7px 15px rgba(55, 84, 170, .15),
+              -7px -7px 20px rgba(255, 255, 255, 1),
+              inset 0px 0px 4px rgba(255, 255, 255, 0),
+              inset 7px 7px 15px rgba(55, 84, 170, .15),
+              inset -7px -7px 20px rgba(255, 255, 255, 1),
+              0px 0px 4px rgba(255, 255, 255, .2) !important;
+}
+
+
+.nuecard{
+  box-shadow:
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001,
+   inset 0px 0px 0px 0px #fff9,
+   inset 0px 0px 0px 0px #0001,
+   inset 0px 0px 0px 0px #fff9,inset 0px 0px 0px 0px #0001;
+ transition:box-shadow 0.6s cubic-bezier(.79,.21,.06,.81);
+   border-radius: 10px;
+   margin-bottom: 2em;
+}
+
+.hidden{
+display: none;
+}
+
+.medAlertText{
+color:#F2C94C;
+}
+
+.highAlertText{
+color:#EB5757;
+}
+
+.medAlertBg{
+background-color:#F2C94C;
+}
+
+.highAlertBg{
+background-color:#EB5757;
+}
+
+.normalBg{
+	background-color:#6202EE;
+}
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+
+</style>
+<link rel="stylesheet" href="flexboxgrid.min.css" type="text/css">
+<script src="jquery.js"></script>
+<script src="serial.js"></script>
+</html>
